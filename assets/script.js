@@ -49,7 +49,7 @@ var xStart = numberPiece - 1;
 var yStart = numberPiece - 1;
 
 function setSizeGamePlay() {
-    var headSite = 30 + 30 + 90;    
+    var headSite = 30 + 30 + 120;    
     var adsense = 60;
 
     if (window.innerHeight >= window.innerWidth) {
