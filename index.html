@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Move your Image</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="assets/jquery-3.5.1.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            color: white;
+            background-color: black;
+            font-family: Arial, Helvetica, sans-serif;
+        }        
+                
+        .lstButtonMove {            
+            width: 320px;
+            height: 90px;        
+            float: left;
+            opacity: 0.5;
+            position: relative;  
+            left: 50%;
+            margin-left: -160px;
+            margin-top: 3px;
+        }
+        .buttonMove {
+            width: 33.33%;
+            height: 29px;
+            float: left;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+            border: none;            
+        }
+
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }          
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }          
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+    </style>
+</head>
+
+<body>    
+    <div id="waittingScreen" style=" display: none; position: fixed; width: 100%; height: 100%; background-color: #ffffff88; z-index: 100;"><div id="loader" class="center"></div></div>
+    <!-- Title -->
+    <div style="width: 100%;background-color: #ffffff44;">
+        <h3 style="text-align: center;margin: 0px;padding-top: 5px;padding-bottom: 3px;">
+            Move your image
+        </h3>
+    </div>
+
+    <!-- button choose -->
+    <div style="width: 50%; height:27px; text-align: center; float: left; margin-bottom: 3px; opacity: 0.8;">
+        <select id="cbxLevel" onchange="changeLevel(this)" 
+        style="width: 100%; height: 27px; font-size: 16px;background-color: #00000088; color: white; cursor: pointer;">
+            <option value="3" selected>Easy</option>
+            <option value="4">Normal</option>
+            <option value="5">Hard</option>
+        </select>
+    </div>
+    <div style="width: 50%; height:27px; text-align: center; float: left; margin-bottom: 3px; opacity: 0.8;">
+        <button id="btnFile" style="width: 100%; height: 27px; font-size: 16px;border: 0px;background-color: black; color: white;text-decoration: underline; cursor: pointer;">Choose file</button>
+        <input type="file" id="myfile" name="myfile" accept="image/*" style="display: none;">
+    </div>        
+
+    <!-- Image source -->
+    <div style="width: 100%;text-align: center;">
+        <div id="divImage" style="display: none;">
+            <img id="imageSrc">
+        </div>
+    </div>   
+
+    <!-- Level 3x3 -->
+    <div style="width: 100%;text-align: center;display: none;" id="number3">
+        <table style="margin: auto;border-spacing: 0px;">
+            <tr>
+                <td>
+                    <div id="div1" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div2" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div3" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="div4" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div5" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div6" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="div7" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div8" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div9" class="divGame">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>    
+
+    <!-- Level 4x4 -->
+    <div style="width: 100%;text-align: center;display: none;" id="number4">
+        <table style="margin: auto;border-spacing: 0px;">
+            <tr>
+                <td>
+                    <div id="div1" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div2" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div3" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div4" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="div5" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div6" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div7" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div8" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="div9" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div10" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div11" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div12" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="div13" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div14" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div15" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>    
+                <td>
+                    <div id="div16" class="divGame">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>  
+    
+    <!-- Level 5x5 -->
+    <div style="width: 100%;text-align: center;display: none;" id="number5">
+        <table style="margin: auto;border-spacing: 0px;">
+            <tr>
+                <td>
+                    <div id="div1" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div2" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div3" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div4" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div5" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>                
+                <td>
+                    <div id="div6" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div7" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div8" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div9" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div10" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>                
+                <td>
+                    <div id="div11" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div12" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div13" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div14" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div15" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>                
+                <td>
+                    <div id="div16" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div17" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div18" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div19" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div20" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="div21" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div22" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div23" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div24" class="divGame">
+                        <img src="" class="game">
+                    </div>
+                </td>
+                <td>
+                    <div id="div25" class="divGame">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>    
+
+    <!-- Moving button -->
+    <div id="lstButtonMove" class="lstButtonMove">
+        <div class="buttonMove"></div>
+        <button class="buttonMove" id="btnTop" style="background-color: #808080; cursor: pointer;">
+            up
+        </button>
+        <div class="buttonMove"></div>
+        <button class="buttonMove" id="btnLeft" style="background-color: #808080; cursor: pointer;">
+            left
+        </button>
+        <div class="buttonMove" style="font-size: 12px; padding-top: 8px; height: 21px;">For:)Fun&copy;</div>
+        <button class="buttonMove" id="btnRight" style="background-color: #808080; cursor: pointer;">
+            right
+        </button>
+        <div class="buttonMove"></div>
+        <button class="buttonMove" id="btnBottom" style="background-color: #808080; cursor: pointer;">
+            down
+        </button>
+        <div class="buttonMove"></div>
+    </div>
+
+    <script src="assets/script.js"></script>
+</body>
+
+</html>
